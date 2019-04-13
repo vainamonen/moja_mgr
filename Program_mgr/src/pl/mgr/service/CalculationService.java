@@ -54,6 +54,7 @@ public class CalculationService {
 
         while(Ekin > 0.0){
 //            plik << x << " , " << dEdx << endl;
+            System.out.println(x + " , " + dEdx);
             dEdx = beta();
             dE = dEdx*dx;     //units J/m*dx
             x = x + dx;
