@@ -20,17 +20,15 @@
           </model>
         </properties>
       </component>
-      <component id="9f7" class="javax.swing.JSlider" binding="Energia">
+      <component id="e3014" class="javax.swing.JTextField" binding="Energia">
         <constraints/>
         <properties>
-          <paintTicks value="false"/>
+          <text value=""/>
         </properties>
       </component>
-      <component id="4380d" class="javax.swing.JButton" binding="button1" default-binding="true">
+      <component id="76eeb" class="javax.swing.JTextField" binding="krok_dx">
         <constraints/>
-        <properties>
-          <text value="Button"/>
-        </properties>
+        <properties/>
       </component>
     </children>
   </grid>

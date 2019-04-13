@@ -8,9 +8,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+import java.awt.Dimension;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 public class main_window {
     private JComboBox promieniowanie;
-    private JSlider Energia;
+    private JTextField Energia;
+    private JTextField krok_dx;
     private JButton button1;
 
     public main_window(CalculationService calculationService) {
@@ -23,20 +28,24 @@ public class main_window {
             }
         });
 
-        Energia.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                //zczytać z tego eventu wartosc z suwaka e.getComponent()
-                calculationService.printResult();
-                //printService.printResult(energia z suwaka, inne)
-                super.componentResized(e);
-            }
-        });
 
-        button1.addActionListener(new ActionListener() {
+        Energia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+               Energia.setSize(100,200);
+                //Energia.setPreferredSize(new Dimension(100,20));
+                Energia.setVisible(true);
+
+
+            }
+        });
+
+        krok_dx.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                krok_dx.setSize(100,200);
+                krok_dx.setVisible(true);
             }
         });
     }
@@ -54,12 +63,15 @@ public class main_window {
         JPanel jPanel = new JPanel();
         jPanel.add(mainWindow.promieniowanie);
         jPanel.add(mainWindow.Energia);
+        jPanel.add(mainWindow.krok_dx);
+
+
 
         frame.setContentPane(jPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        frame. setSize(500,500);
+        frame.setSize(500,500);
 
         System.out.println("wynik " + calculationService.Tmax());
 
