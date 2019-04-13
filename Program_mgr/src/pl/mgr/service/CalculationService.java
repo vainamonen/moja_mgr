@@ -1,6 +1,7 @@
 package pl.mgr.service;
 
 import pl.mgr.constant.ConstantAlfa;
+import pl.mgr.constant.RadiationType;
 
 public class CalculationService {
 
@@ -39,5 +40,9 @@ public class CalculationService {
 
 
         //return;
+    }
+
+    public void calculate(RadiationType selectedRadiationType, double selectedEnergy, double selectedDx) {
+        System.out.println("Dane wejściowe calculate: " + selectedRadiationType + " " + selectedEnergy + " " + selectedDx);
     }
 }
