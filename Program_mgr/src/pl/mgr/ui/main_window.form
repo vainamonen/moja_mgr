@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="pl.mgr.ui.main_window">
   <grid id="27dc6" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="930" height="400"/>
     </constraints>
     <properties>
       <enabled value="true"/>
@@ -18,17 +18,28 @@
             <item value="gamma,X"/>
             <item value="neutronowe"/>
           </model>
+          <toolTipText value="wybierz promieniowanie"/>
         </properties>
       </component>
-      <component id="e3014" class="javax.swing.JTextField" binding="Energia">
+      <component id="e3014" class="javax.swing.JTextField" binding="energia">
         <constraints/>
         <properties>
           <text value=""/>
+          <toolTipText value="energia"/>
         </properties>
       </component>
       <component id="76eeb" class="javax.swing.JTextField" binding="krok_dx">
         <constraints/>
-        <properties/>
+        <properties>
+          <text value=""/>
+          <toolTipText value="krok dx"/>
+        </properties>
+      </component>
+      <component id="766f8" class="javax.swing.JButton" binding="oblicz">
+        <constraints/>
+        <properties>
+          <text value="Oblicz"/>
+        </properties>
       </component>
     </children>
   </grid>

@@ -1,55 +1,64 @@
 package pl.mgr.ui;
 
+import pl.mgr.constant.RadiationType;
 import pl.mgr.service.CalculationService;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-
-import java.awt.Dimension;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 public class main_window {
     private JComboBox promieniowanie;
-    private JTextField Energia;
+    private JTextField energia;
     private JTextField krok_dx;
-    private JButton button1;
+    private JButton oblicz;
 
-    public main_window(CalculationService calculationService) {
+    private RadiationType selectedRadiationType = RadiationType.ALFA;
+    private double selectedEnergy = 0;
+    private double selectedDx = 0;
 
+    private final CalculationService calculationService;
+
+    public main_window(final CalculationService calculationService) {
+        this.calculationService = calculationService;
 
         promieniowanie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                JComboBox source = (JComboBox) e.getSource();
+                String selectedItem = (String) source.getSelectedItem();
+                switch (selectedItem) {
+                    case "alfa":
+                        selectedRadiationType = RadiationType.ALFA;
+                        break;
+                    case "beta":
+                        selectedRadiationType = RadiationType.BETA;
+                        break;
+                    case "gamma,X":
+                        selectedRadiationType = RadiationType.GAMMA_X;
+                        break;
+                    case "neutronowe":
+                        selectedRadiationType = RadiationType.NEUTRONOWE;
+                        break;
+                    default:
+                        break;
+                }
+                System.out.println("Wybrano typ promieniowania: " + selectedRadiationType);
             }
         });
 
-
-        Energia.addActionListener(new ActionListener() {
+        oblicz.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                selectedEnergy = Double.parseDouble(energia.getText());
+                selectedDx = Double.parseDouble(krok_dx.getText());
+                System.out.println("Przycisk\nDane: " + selectedRadiationType + " " + selectedEnergy + " " + selectedDx);
 
-               Energia.setSize(100,200);
-                //Energia.setPreferredSize(new Dimension(100,20));
-                Energia.setVisible(true);
-
-
-            }
-        });
-
-        krok_dx.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                krok_dx.setSize(100,200);
-                krok_dx.setVisible(true);
+                calculationService.calculate(selectedRadiationType, selectedEnergy, selectedDx);
             }
         });
     }
-
 
 
     public static void main(String[] args) {
@@ -62,19 +71,21 @@ public class main_window {
         JFrame frame = new JFrame("Aplikacja");
         JPanel jPanel = new JPanel();
         jPanel.add(mainWindow.promieniowanie);
-        jPanel.add(mainWindow.Energia);
+        jPanel.add(mainWindow.energia);
         jPanel.add(mainWindow.krok_dx);
-
-
+        jPanel.add(mainWindow.oblicz);
 
         frame.setContentPane(jPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        frame.setSize(500,500);
+        frame.pack();
+        frame.setSize(500, 500);
+
+        mainWindow.energia.setPreferredSize(new Dimension(100, 30));
+        mainWindow.krok_dx.setPreferredSize(new Dimension(100, 30));
+        mainWindow.oblicz.setPreferredSize(new Dimension(100, 30));
 
         System.out.println("wynik " + calculationService.Tmax());
-
     }
 }
 
