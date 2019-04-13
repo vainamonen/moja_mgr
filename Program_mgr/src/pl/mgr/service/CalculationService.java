@@ -44,5 +44,23 @@ public class CalculationService {
 
     public void calculate(RadiationType selectedRadiationType, double selectedEnergy, double selectedDx) {
         System.out.println("Dane wejściowe calculate: " + selectedRadiationType + " " + selectedEnergy + " " + selectedDx);
+
+        double x = 0.0;        	 //position in mm
+        double dE = 0.0;     	//energy loss
+        double dx = 1.e-6;  	//1mm todo czy to to samo co selectedDx?
+        double dEdx = 0.0;
+
+        double Ekin = 0.1;//todo czy to to samo co selectedEnergy?
+
+        while(Ekin > 0.0){
+//            plik << x << " , " << dEdx << endl;
+            dEdx = beta();
+            dE = dEdx*dx;     //units J/m*dx
+            x = x + dx;
+            Ekin = Ekin - dE;
+            if(dE < 0) {
+                break;
+            }
+        }
     }
 }
