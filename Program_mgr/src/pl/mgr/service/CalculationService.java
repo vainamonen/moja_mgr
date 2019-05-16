@@ -3,6 +3,9 @@ package pl.mgr.service;
 import pl.mgr.constant.ConstantAlfa;
 import pl.mgr.constant.RadiationType;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 public class CalculationService {
 
     // tu metody liczące rozne rzeczy
@@ -64,4 +67,23 @@ public class CalculationService {
             }
         }
     }
+
+
+
+
+    public static void zapiszPlik(String nazwaPliku) {
+        try{
+            PrintWriter out = new PrintWriter(nazwaPliku);
+
+            out.println("raz");
+            out.println("dwa");
+            out.println("trzy");
+            out.close();
+        } catch (FileNotFoundException ex){
+            System.out.println("Nie utworzono pliku");
+        }
+    }
+
+
+
 }

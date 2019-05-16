@@ -20,6 +20,8 @@ public class main_window {
 
     private final CalculationService calculationService;
 
+
+
     public main_window(final CalculationService calculationService) {
         this.calculationService = calculationService;
 
@@ -58,6 +60,8 @@ public class main_window {
                 calculationService.calculate(selectedRadiationType, selectedEnergy, selectedDx);
             }
         });
+
+
     }
 
 
@@ -86,6 +90,12 @@ public class main_window {
         mainWindow.oblicz.setPreferredSize(new Dimension(100, 30));
 
         System.out.println("wynik " + calculationService.Tmax());
+
+
+
+
+        String nazwaPliku = "dane16.05.txt";
+        CalculationService.zapiszPlik(nazwaPliku);
     }
 }
 
