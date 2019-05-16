@@ -5,6 +5,8 @@ import pl.mgr.constant.RadiationType;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CalculationService {
 
@@ -46,44 +48,57 @@ public class CalculationService {
     }
 
     public void calculate(RadiationType selectedRadiationType, double selectedEnergy, double selectedDx) {
-        System.out.println("Dane wejściowe calculate: " + selectedRadiationType + " " + selectedEnergy + " " + selectedDx);
+        List<String> toPrint = new ArrayList<>();
+        String startText = "Dane wejściowe calculate: " + selectedRadiationType + " " + selectedEnergy + " " + selectedDx;
+        System.out.println(startText);
+        toPrint.add(startText);
 
-        double x = 0.0;        	 //position in mm
-        double dE = 0.0;     	//energy loss
+        double x = 0.0;             //position in mm
+        double dE = 0.0;        //energy loss
         //double dx = 1.e-6;  	//1mm todo czy to to samo co selectedDx?
         double dEdx = 0.0;
 
-       // double Ekin = 0.1;//todo czy to to samo co selectedEnergy?
+        // double Ekin = 0.1;//todo czy to to samo co selectedEnergy?
 
-        while(selectedEnergy > 0.0){
+        while (selectedEnergy > 0.0) {
 //            plik << x << " , " << dEdx << endl;
-            System.out.println(x + " , " + dEdx);
+            String stepText = x + " , " + dEdx;
+            System.out.println(stepText);
+            toPrint.add(stepText);
             dEdx = beta();
-            dE = dEdx*selectedDx;     //units J/m*dx
+            dE = dEdx * selectedDx;     //units J/m*dx
             x = x + selectedDx;
             selectedEnergy = selectedEnergy - dE;
-            if(dE < 0) {
+            if (dE < 0) {
                 break;
             }
         }
+        zapiszPlik("calculate.txt", toPrint);
     }
 
+    private static void zapiszPlik(String nazwaPliku, List<String> toPrint) {
+        try {
+            final PrintWriter out = new PrintWriter(nazwaPliku);
 
-
+            for (String line : toPrint) {
+                out.println(line);
+            }
+            out.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Nie utworzono pliku");
+        }
+    }
 
     public static void zapiszPlik(String nazwaPliku) {
-        try{
+        try {
             PrintWriter out = new PrintWriter(nazwaPliku);
 
             out.println("raz");
             out.println("dwa");
             out.println("trzy");
             out.close();
-        } catch (FileNotFoundException ex){
+        } catch (FileNotFoundException ex) {
             System.out.println("Nie utworzono pliku");
         }
     }
-
-
-
 }
