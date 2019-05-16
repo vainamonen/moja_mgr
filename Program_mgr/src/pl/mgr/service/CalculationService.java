@@ -50,18 +50,18 @@ public class CalculationService {
 
         double x = 0.0;        	 //position in mm
         double dE = 0.0;     	//energy loss
-        double dx = 1.e-6;  	//1mm todo czy to to samo co selectedDx?
+        //double dx = 1.e-6;  	//1mm todo czy to to samo co selectedDx?
         double dEdx = 0.0;
 
-        double Ekin = 0.1;//todo czy to to samo co selectedEnergy?
+       // double Ekin = 0.1;//todo czy to to samo co selectedEnergy?
 
-        while(Ekin > 0.0){
+        while(selectedEnergy > 0.0){
 //            plik << x << " , " << dEdx << endl;
             System.out.println(x + " , " + dEdx);
             dEdx = beta();
-            dE = dEdx*dx;     //units J/m*dx
-            x = x + dx;
-            Ekin = Ekin - dE;
+            dE = dEdx*selectedDx;     //units J/m*dx
+            x = x + selectedDx;
+            selectedEnergy = selectedEnergy - dE;
             if(dE < 0) {
                 break;
             }
